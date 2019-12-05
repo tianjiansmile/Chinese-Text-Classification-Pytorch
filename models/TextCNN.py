@@ -33,7 +33,7 @@ class Config(object):
         self.learning_rate = 1e-3                                       # 学习率
         self.embed = self.embedding_pretrained.size(1)\
             if self.embedding_pretrained is not None else 300           # 字向量维度
-        self.filter_sizes = (2, 3, 4)                                   # 卷积核尺寸
+        self.filter_sizes = (2, 3, 4)                                   # 卷积核尺寸,卷积核的长度必须与每一个词的词向量维度相同。宽度是不固定的
         self.num_filters = 256                                          # 卷积核数量(channels数)
 
 
@@ -59,6 +59,7 @@ class Model(nn.Module):
 
     def forward(self, x):
         out = self.embedding(x[0])
+        print(out)
         out = out.unsqueeze(1)
         out = torch.cat([self.conv_and_pool(out, conv) for conv in self.convs], 1)
         out = self.dropout(out)
