@@ -42,6 +42,7 @@ def build_dataset(config, ues_word):
 
     def load_dataset(path, pad_size=32):
         contents = []
+        # 读入文本文件
         with open(path, 'r', encoding='UTF-8') as f:
             for line in tqdm(f):
                 lin = line.strip()
@@ -49,6 +50,7 @@ def build_dataset(config, ues_word):
                     continue
                 content, label = lin.split('\t')
                 words_line = []
+                # 分词
                 token = tokenizer(content)
                 seq_len = len(token)
                 if pad_size:
@@ -57,7 +59,7 @@ def build_dataset(config, ues_word):
                     else:
                         token = token[:pad_size]
                         seq_len = pad_size
-                # word to id
+                # word to id 将词转换为词向量位置下标
                 for word in token:
                     words_line.append(vocab.get(word, vocab.get(UNK)))
                 contents.append((words_line, int(label), seq_len))

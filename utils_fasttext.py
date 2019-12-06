@@ -111,6 +111,7 @@ class DatasetIterater(object):
         seq_len = torch.LongTensor([_[2] for _ in datas]).to(self.device)
         return (x, seq_len, bigram, trigram), y
 
+    # 内置函数，表示当前类对象可以迭代
     def __next__(self):
         if self.residue and self.index == self.n_batches:
             batches = self.batches[self.index * self.batch_size: len(self.batches)]

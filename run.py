@@ -36,6 +36,7 @@ if __name__ == '__main__':
 
     start_time = time.time()
     print("Loading data...")
+    # 将文本对应的词向量下标映射出来
     vocab, train_data, dev_data, test_data = build_dataset(config, args.word)
     train_iter = build_iterator(train_data, config)
     dev_iter = build_iterator(dev_data, config)
